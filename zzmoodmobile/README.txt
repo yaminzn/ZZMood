@@ -1,0 +1,1 @@
+Refaire un projet ionic2 puis copier coller les dossiers!!
