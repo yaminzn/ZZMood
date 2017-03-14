@@ -1,0 +1,54 @@
+<div class="wrapper">
+    <br>
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <h4>You are voting for: <b>{{channelTitle}}</b></h4>
+        </div>
+        <br>
+        <form (ngSubmit)="submitData()">
+            <div class="row justify-content-md-center">
+                <div class="col-md-2" *ngFor="let i of [1,2,3,4,5]" (click)="toggle(i-1)">
+                    <div class="jumbotron mood-{{i}}" [ngClass]="{ 'activ' : mood[i-1] }">
+                        <h1 class="display-3">{{getSmiley(i)}}</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="feedback">Feedback:</label>
+                        <textarea class="form-control" id="feedback" name="message" rows="4" [(ngModel)]="message" maxlength="500" placeholder="Send an anonymous message"
+                            (keydown.enter)="$event.preventDefault()" (keydown.enter)="submitData()"></textarea>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <br>
+    <div class="container-fluid" [hidden]="submitted">
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success resizeBar" role="progressbar" aria-valuenow="100" aria-valuemin="0"
+                aria-valuemax="100">
+                <h4>Data submitted!</h4>
+        </div>
+    </div>
+</div>
+<br>
+
+
+<div class="row justify-content-md-center nomargin">
+    <div class="col-md-2">
+        <a routerLink="/" routerLinkActive="active">
+            <button type="button" class="btn btn-primary">< Go back</button>
+        </a>
+    </div>
+    <div class="col-md-2">
+        <a routerLink="/chart/{{channelId}}" routerLinkActive="active">
+            <button type="button" class="btn btn-success">See results ></button>
+        </a>
+    </div>
+</div>
+<br>
+</div>

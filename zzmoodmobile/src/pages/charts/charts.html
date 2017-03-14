@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>{{channelTitle}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>Period</ion-label>
+      <ion-select [(ngModel)]="period" (ionChange)="periodOnChange()">
+        <ion-option value="global">Global</ion-option>
+        <ion-option value="day">Day</ion-option>
+        <ion-option value="week">Week</ion-option>
+        <ion-option value="month">Month</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <p text-center>
+    From {{timeStart | date:'longDate'}} to {{timeEnd | date:'longDate'}}
+  </p>
+  <div>
+    <canvas *ngIf="period == 'global'" baseChart [data]="pieChartData" [colors]="pieChartColors" [labels]="pieChartLabels" [chartType]="pieChartType">
+    </canvas>
+    <canvas *ngIf="period == 'day'" baseChart [datasets]="lineChartDataDay" [colors]="lineChartColors" [labels]="lineChartLabelsDay"
+      [options]="lineChartOptions" [legend]="lineChartLegend" [chartType]="lineChartType">
+      </canvas>
+      <canvas *ngIf="period == 'week'" baseChart [datasets]="lineChartDataWeek" [colors]="lineChartColors" [labels]="lineChartLabelsWeek"
+        [options]="lineChartOptions" [legend]="lineChartLegend" [chartType]="lineChartType">
+        </canvas>
+        <canvas *ngIf="period == 'month'" baseChart [datasets]="lineChartDataMonth" [colors]="lineChartColors" [labels]="lineChartLabelsMonth"
+          [options]="lineChartOptions" [legend]="lineChartLegend" [chartType]="lineChartType">
+          </canvas>
+  </div>
+  <br>
+  <ion-card *ngFor="let item of voteList; let i = index;">
+    <ion-item>
+      <h2>{{item.date | date:'fullDate'}}</h2>
+      <p *ngIf="period != 'global'">{{period}} {{voteList.length-i}}</p>
+    </ion-item>
+    <ion-card-content>
+      <p>Total votes: <b>{{getVoteCount(item.votes)}}</b>, Average: <b>{{getAverageScore([item])}}</b>
+      </p>
+    </ion-card-content>
+    <ion-item *ngIf="getVoteCount(item.votes) > 0">
+      <p item-left>
+        Comments ({{item.comments.length}})
+      </p>
+      <a ion-button icon-left clear item-right (click)="openModal(i)">
+        <ion-icon name="navigate"></ion-icon>
+        View details
+      </a>
+    </ion-item>
+  </ion-card>
+</ion-content>

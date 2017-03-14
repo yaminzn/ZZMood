@@ -1,0 +1,12 @@
+div {
+  text-align: center;
+}
+.wrapper{
+  min-height: 100vh;
+}
+p {
+  margin-bottom: 0 !important;
+}
+.list-group {
+  padding-right: 0 !important;
+}

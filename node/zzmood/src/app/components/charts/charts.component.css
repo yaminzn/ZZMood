@@ -1,0 +1,71 @@
+.mood-1 {
+    background: #8c3b5d;
+}
+.mood-2 {
+    background: #ff7b00;
+}
+.mood-3 {
+    background: #f1c500;
+}
+.mood-4 {
+    background: #5b90e5;
+}
+.mood-5 {
+    background: #1fbc99;
+}
+.mood{
+    color: white;
+    text-align: center;
+    padding-top: 25px;
+    padding-bottom: 20px;
+    border-radius: 6px;
+}
+.list-group-item { 
+    word-wrap: break-word; 
+}
+.min{
+    opacity: 0.6;
+}
+
+.mood-card-1 {
+    border-color: #8c3b5d;
+}
+.mood-card-1 > .card-header {
+    color: white;
+    background: #8c3b5d;
+}
+
+.mood-card-2 {
+    border-color: #ff7b00;
+}
+.mood-card-2 > .card-header {
+    color: white;
+    background: #ff7b00;
+}
+
+.mood-card-3 {
+    border-color: #f1c500;
+}
+.mood-card-3 > .card-header {
+    color: white;
+    background: #f1c500;
+}
+
+.mood-card-4 {
+    border-color: #5b90e5;
+}
+.mood-card-4 > .card-header {
+    color: white;
+    background: #5b90e5;
+}
+
+.mood-card-5 {
+    border-color: #1fbc99;
+}
+.mood-card-5 > .card-header {
+    color: white;
+    background: #1fbc99;
+}
+.wrapper{
+  min-height: 100vh;
+}

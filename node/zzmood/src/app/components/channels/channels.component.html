@@ -1,0 +1,29 @@
+<br>
+<div class="container wrapper">
+    <h1>ZZMood</h1>
+    <p class="text-muted">A mood and ROTI measurement tool</p>
+    <br>
+    <div class="row justify-content-center">
+        <div class="form-group col-md-6">
+            <input type="text" class="form-control" placeholder="Group name here" (keyup.enter)="checkChannel($event.target.value)" autofocus>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div *ngIf="storedChannels.length > 0" class="justify-content-center">
+        <h5>Recent selections:</h5>
+        <br>
+        <div class="list-group col-md-6 offset-md-3">
+            <div class="list-group-item list-group-item-action" *ngFor="let item of storedChannels" (click)="checkChannel(item.title)">
+                <div class="d-flex w-100 justify-content-between">
+                    <p>{{item.title}}</p>
+                    <small class="text-muted">{{daysAgo(item.lastJoin)}}</small>
+                </div>
+            </div>
+            <div class="list-group-item list-group-item-action list-group-item-warning" (click)="removeAll()">
+                Clear
+            </div>
+        </div>
+    </div>
+    <br>
+</div>
