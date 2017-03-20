@@ -494,7 +494,7 @@ export class ChartsComponent implements OnInit {
       date = moment(e.date).format("DD/MM/YYYY");
       dates.push(date);
     });
-    return dates;
+    return dates.reverse();
   }
 
   /* Get the average score according the the
