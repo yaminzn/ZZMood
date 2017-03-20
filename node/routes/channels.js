@@ -5,11 +5,14 @@ var db = mongojs('mongodb://bezheng:aqwzsx123@ds161518.mlab.com:61518/mood', ['c
 var db2 = mongojs('mongodb://bezheng:aqwzsx123@ds161518.mlab.com:61518/mood', ['votes']);
 var db3 = mongojs('mongodb://bezheng:aqwzsx123@ds161518.mlab.com:61518/mood', ['comments']);
 
-// Get all channels
+// Get all channels from the database
 router.get('/channels', function (req, res, next) {
-    // Allow cross origin
+    /* Allowing the HTTP requests between tw different domains
+       in this case, the app and the database website */
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
+
+    /* finding all the channels documents */
     db.channels.find(function (err, channels) {
         if (err) {
             res.send(err);

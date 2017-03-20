@@ -56,6 +56,9 @@ export class VoteComponent implements OnInit {
       this.mood[i] = false;
     }
   }
+
+    /* Submitting the data to the database, after chosing
+     the mood & writing a comment */
   submitData() {
     if (this.vote != null) {
       this.addVote();
@@ -66,6 +69,8 @@ export class VoteComponent implements OnInit {
     this.submitted = true;
   }
 
+  /* Creating a vote document, filling it with the date,
+     the mood & the group. */
   addVote() {
     var newVote = {
       channelId: this.channelId,
@@ -79,6 +84,8 @@ export class VoteComponent implements OnInit {
     });
   }
 
+  /* Creating a Comment document, filling it with the date,
+     & the group. */
   addComment() {
     if (this.message.length == 0) {
       return;
@@ -114,6 +121,7 @@ export class VoteComponent implements OnInit {
     return smiley;
   }
 
+  /* Check if channelId is valid */
   verifyChannel(channelId) {
     this.channelsService.getChannel(channelId).subscribe(
       data => {

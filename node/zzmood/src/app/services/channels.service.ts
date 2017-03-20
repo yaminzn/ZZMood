@@ -9,14 +9,17 @@ export class ChannelsService {
     constructor(private http: Http) {
     }
 
+    /* http request to the api to get all the channels & get the response in JSON format */
     getChannels() {
         return this.http.get('api/channels').map(res => res.json());
     }
 
+    /* http request to the api to get the channel with a specific id & get the response in JSON format */
     getChannel(channelId) {
         return this.http.get('api/channel/' + channelId).map(res => res.json()).catch(this.handleError);
     }
 
+    /*handling errors for bad requests*/
     private handleError(error: Response | any) {
         let errMsg: string;
         if (error instanceof Response) {
@@ -30,6 +33,7 @@ export class ChannelsService {
         return Observable.throw(errMsg);
     }
 
+    /*http request to the api to create a new channel */
     addChannel(newChannel) {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');

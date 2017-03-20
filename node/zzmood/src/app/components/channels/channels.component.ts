@@ -20,11 +20,12 @@ export class ChannelsComponent implements OnInit {
   ngOnInit() {
   }
   
-  // Return time from now, i.e. "3 days ago"
+  /* Return time from now, i.e. "3 days ago" */
   daysAgo(date: string) {
       return moment(new Date(date)).fromNow();
   }
 
+  /* Create a list of the last groups the user entered */
   addToStorage(title: string) {   
       let arr = _.filter(this.storedChannels, function (e) { return e.title == title; });
       if (!(arr.length > 0)) {
@@ -35,7 +36,7 @@ export class ChannelsComponent implements OnInit {
       }
   }
 
-  // Not used
+  /* Removing an element from the "last groups visited" list */
   removeOne(title: string) {
     this.storedChannels.forEach((element, index) => {
       if (element.title == title) {
@@ -46,11 +47,13 @@ export class ChannelsComponent implements OnInit {
     });
   }
 
+  /* Removing all the elements from the "last groups visited" list */
   removeAll() {
     this.storedChannels = [];
     localStorage.removeItem('channels');
   }
 
+  /* When a new groups is visited, adds it to the "last group visited" list */
   store() {
     localStorage.setItem('channels', JSON.stringify(this.storedChannels));
   }
@@ -62,7 +65,7 @@ export class ChannelsComponent implements OnInit {
     }
   }
 
-  // e : title
+  /* Add the channel to the data, if it's a new channel */
   addChannel(title: string) {
     var newChannel = {
       title: title
@@ -73,6 +76,7 @@ export class ChannelsComponent implements OnInit {
     });
   }
 
+   /* Checking whether the channel is Valid or not */
   checkChannel(title: string) {
     this.channelsService.getChannels().subscribe(channels => { //Get all channels
       let chan = channels.filter(x => x.title == title); //Filter results

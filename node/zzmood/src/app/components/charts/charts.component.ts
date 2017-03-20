@@ -9,6 +9,11 @@ import * as moment from 'moment';
 import { Comment } from '../../interfaces/comment.interface';
 import { Vote } from '../../interfaces/vote.interface';
 
+/* Composant ChartsComponent
+/* Composant pour la gestion des graphes à afficher
+/* Utilisation de la librairie ChartJS pour les graphes
+/* Utilisation des librairies MomentJS et Underscore pour la gestion des tableaux */
+
 @Component({
   selector: 'app-charts',
   templateUrl: './charts.component.html',
@@ -28,11 +33,13 @@ export class ChartsComponent implements OnInit {
   timeStart: Date;
   timeEnd: Date;
 
+  //Initialisation des entrées du pie Chart
   public pieChartLabels = [":( Sad", ":/ Meh", ":| Average", ":) Good", ":D Happy"];
   public pieChartData = [0, 0, 0, 0, 0];
   public pieChartType: string = "pie";
   public pieChartColors: any[] = [{ backgroundColor: ["#8c3b5d", "#ff7b00", "#f1c500", "#5b90e5", "#1fbc99"] }];
 
+//Initialisation des entrées du line Chart
   public lineChartDataDay: Array<any> = [{
     data: [],
     label: "Average mood level"
@@ -54,7 +61,7 @@ export class ChartsComponent implements OnInit {
   };
   public lineChartLegend: boolean = true;
   public lineChartType: string = 'line';
-  public lineChartColors: Array<any> = [{
+  public lineChartColors: Array<any> = [{ // Gestion des couleurs du graphe
     backgroundColor: "transparent",
     borderColor: 'rgba(75,192,192,1)',
     pointBackgroundColor: 'rgba(75,192,192,1)',
@@ -84,12 +91,12 @@ export class ChartsComponent implements OnInit {
     this.getComments(this.channelId);
   }
 
-  // Toggle visibility on the comments
+  // Toggle visibility on the comments, true makes the comments visible, while false disables the visibility
   showComment(i: number) {
     this.commentList[i] = !this.commentList[i];
   }
 
-  // formatData on period change
+  // changing the data for the charts when toggling between the periods
   periodOnChange(event) {
     this.period = event;
     this.formatData(this.votes, this.comments);
@@ -127,7 +134,10 @@ export class ChartsComponent implements OnInit {
     return this.channelTitle + "_" + moment().format() + ".csv";
   }
 
-  // Get the channel's comments
+  /* Get the channel's comments
+     getting comments from the database using the API &
+     changing the date format to a date object that can be
+     manipulated in a JavaScript/TypeScript code */
   getComments(channelId) {
     this.commentsService.getComments(channelId).subscribe(comments => {
       let tableau = [];
@@ -140,7 +150,10 @@ export class ChartsComponent implements OnInit {
     });
   }
 
-  // Get the channel's votes
+  /* Get the channel's votes
+     getting votess from the database using the API &
+     changing the date format to a date object that can be
+     manipulated in a JavaScript/TypeScript code */
   getVotes(channelId) {
     this.votesService.getVotes(channelId).subscribe(votes => {
       let tableau = [];
@@ -154,7 +167,9 @@ export class ChartsComponent implements OnInit {
     });
   }
 
-  // Get the vote count in a period (does not count duplicates)
+  /* Get the vote count in a period (does not count duplicates)
+     Couting the votes without duplicates to serve the calculation
+     of percentages & averages  */
   getVoteCount(element) {
     let slice = element.slice(1, element.length);
     let sum = [];
@@ -167,11 +182,15 @@ export class ChartsComponent implements OnInit {
     }, 0);
   }
 
+  /* Get the percentage of each mood
+     using the getVoteCount above */
   getVotePercentage(element, i: number) {
     let total = this.getVoteCount(element);
     return (total != 0) ? Math.round(element[i].length / total * 100) : 0;
   }
 
+  /* Get the global average score of each humour
+     using the getVoteCount above */
   getAverageScore(voteList) {
     if (voteList != undefined) {
       let sum = 0;
@@ -186,6 +205,8 @@ export class ChartsComponent implements OnInit {
     }
   }
 
+  /* Get the highest average score recorded, in
+     the period of vote  */
   getBestAverageScore(voteList) {
     if (voteList != undefined) {
       let res = 0;
@@ -211,6 +232,8 @@ export class ChartsComponent implements OnInit {
     }
   }
 
+  /* Get the lowest average score recorded, in
+     the period of vote  */
   getWorstAverageScore(voteList) {
     if (voteList != undefined) {
       let res = 5;
@@ -248,19 +271,23 @@ export class ChartsComponent implements OnInit {
     }
   }
 
+  /* Rounded to one decimal */
   getAverageScore_Rounded(voteList) {
     return Math.round(this.getAverageScore(voteList));
   }
 
+  /* Rounded to one decimal */
   getBestAverageScore_Rounded(voteList) {
     return Math.round(this.getBestAverageScore(voteList));
   }
 
+  /* Rounded to one decimal */
   getWorstAverageScore_Rounded(voteList) {
     return Math.round(this.getWorstAverageScore(voteList));
   }
 
-  // Format votes and comments
+    /* Format votes, comments and dates to be
+     used in the views & charts. */
   formatData(votes: { _id: string, channelId: string, status: number, time: Date, userId: string }[], comments) {
     let dates = [];
     if (this.period == "global") {
@@ -458,6 +485,8 @@ export class ChartsComponent implements OnInit {
     }
   }
 
+  /* Gets the dates from the stored votes,
+     format them in "Day/Month/Year" format */
   getDates(voteList) {
     let date = new String();
     let dates = [];
@@ -468,6 +497,8 @@ export class ChartsComponent implements OnInit {
     return dates;
   }
 
+  /* Get the average score according the the
+     periodicity chosen by the user */
   getAverageScoreByPeriod(voteList) {
     let average = [];
     let temp = [];
@@ -496,6 +527,8 @@ export class ChartsComponent implements OnInit {
     return smiley;
   }
 
+  /* For each mood level,
+     a specific color is given, for design purposes */
   getSmileyBgColor(i: number) {
     let color: String;
     if (i == 1) {
@@ -512,6 +545,7 @@ export class ChartsComponent implements OnInit {
     return color;
   }
 
+  /* Check if the channel exists */
   verifyChannel(channelId) {
     this.channelsService.getChannel(channelId).subscribe(
       data => {
@@ -527,7 +561,7 @@ export class ChartsComponent implements OnInit {
     );
   }
 
-  // Bad channelId
+  /*Bad channelId redirects to the homepage */
   errorId() {
     console.log('Error with channelId')
     console.log('Redirecting...');
