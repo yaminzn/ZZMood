@@ -1,8 +1,8 @@
-Refaire un projet ionic2 puis copier coller les dossiers
-Recreer l'application mobile a partir de la (iOS ou android)
+Une version prête au déploiement est le fichier: (avec une signature bidon)
+android-release-unsigned.apk
 
-Une version déjà compilé est dans le dossier courant
-./android-release-unsigned.apk
+Attention, il faut avoir une signature valide avant de mettre le fichier sur le Google Store
+
 
 Todo:
-Améliorer la mise à jour dynamique des données du line chart
+Améliorer la mise à jour dynamique des données du line chart, voir dans \src\pages\charts
