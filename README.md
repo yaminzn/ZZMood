@@ -107,4 +107,4 @@ Guide d'installation sur WINDOWS de l'application mobile:
 
 Note: 	La connection à la base de données se situe dans node\routes\channels.js
 	Il faut changer l'adresse de la base de données si vous la changer, vous devriez surement le faire pour utiliser une base de données sur vos propres serveurs. Cette base de données DOIT être en No-SQL sinon il faudra surement rajouter des lignes de codes.
-	Aller sur https://mlab.com/login/ avec le pseudo: bezheng et pour mot de passe: aqwzsx123 pour avoir accès au contenu de la base de données.
+	Aller sur https://mlab.com/login/ avec le pseudo: bezheng et pour mot de passe: aqwzsx123 pour avoir accès au contenu de la base de données actuelle.
